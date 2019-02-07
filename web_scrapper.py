@@ -33,3 +33,11 @@ def fprint(itr):
         prc.start()
         prc.join()
         return self.html
+    
+    
+class HTMLParser_1():
+    def __init__(self, html):
+        self.html = html
+        self.parser = MyHTMLParser()
+        self.start_tags = self.extract_start_tags(self.html)
+        self.end_tags = self.extract_end_tags(self.html)
