@@ -41,3 +41,23 @@ class HTMLParser_1():
         self.parser = MyHTMLParser()
         self.start_tags = self.extract_start_tags(self.html)
         self.end_tags = self.extract_end_tags(self.html)
+        
+    def feed_parser(self, html):
+        self.parser.feed(html)
+        
+    @property
+    def urls_found(self):
+        urls = re.findall(r'="(http.*?)"', html, re.M)
+        urls = [z for z in urls if bool(re.search(r"[{};#]+", z)) == False and len(z) > 10]
+        if urls:
+            global original_list
+            original_list = urls
+        urls = [re.sub("\\\\","",z) if "\\" in z else z for z in urls]
+        if len(urls) == 1 and len(urls[0]) > 30:
+            print("URLs not Found !")
+        else:
+            print("{} URLs Found !".format(len(urls)))
+        return urls
+        
+        
+        
